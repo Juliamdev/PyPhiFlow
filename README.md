@@ -45,24 +45,33 @@ pyphi-flow/
 
 **⚙️ Setting Up Locally**
 
-1. Database Configuration (MySQL)
+The whole stack (MySQL + PHP API) runs with Docker Compose. Only [Docker Desktop](https://www.docker.com/products/docker-desktop/) is required.
 
-Run the migration schema located in the database directory:
+1. Environment variables
 
-mysql -u root -p < database/schema.sql
+```bash
+cp .env.example .env   # then set your database passwords
+```
 
+2. Install PHP dependencies (Composer runs inside the container)
 
-2. API Gateway Setup (PHP)
+```bash
+docker compose build
+docker compose run --rm --no-deps api composer install
+```
 
-Ensure you have PHP 8.2+ and Composer installed.
+3. Start the stack
 
-cd api
-composer install
-cp .env.example .env # Configure your database credentials and JWT secret key
-php -S localhost:8000 -t public/
+```bash
+docker compose up -d
+```
 
+- API: http://localhost:8000
+- MySQL (e.g. for MySQL Workbench): `127.0.0.1:3307`. The schema in `database/schema.sql` is applied automatically the first time the database is created.
 
-3. Worker Setup (Python)
+Stop everything with `docker compose down`.
+
+4. Worker Setup (Python) — *in development*
 
 Ensure Python 3.10+ is installed.
 

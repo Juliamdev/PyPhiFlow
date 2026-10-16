@@ -1,0 +1,18 @@
+# PHP
+api/vendor/
+
+# Variáveis de ambiente (contêm senhas)
+.env
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor / SO
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
